@@ -12,8 +12,11 @@ class BaseWidget extends StatefulWidget {
 class BaseState extends State {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return StatefulBuilder(
+      builder: (context, child){
+
+      },
+    );
   }
 }
 
