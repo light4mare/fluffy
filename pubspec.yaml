@@ -1,0 +1,4 @@
+name: flutter_plate
+
+dev_dependencies:
+  provider: ^4.3.2+2
