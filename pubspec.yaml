@@ -8,4 +8,9 @@ environment:
 dev_dependencies:
   flutter:
     sdk: flutter
+
+  #  https://pub.flutter-io.cn/packages/provider
+  #  主工程也要添加依赖
   provider: ^4.3.2+2
+
+  cupertino_icons: ^0.1.3
