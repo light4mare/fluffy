@@ -11,6 +11,7 @@ typedef OnTap = void Function();
 
 typedef PageBuilder = Function(BuildContext context);
 
+// ignore: must_be_immutable
 abstract class PageEx<VM extends ChangeNotifier> extends SimplePageEx with DecorMixin {
   Color bgColor = AppConfig.bodyColor;
 
@@ -24,16 +25,6 @@ abstract class PageEx<VM extends ChangeNotifier> extends SimplePageEx with Decor
         body: buildBody(context),
       ),
       // child: buildView(context),
-    );
-  }
-
-  Widget _buildDecorView(BuildContext context) {
-    return Stack(
-      children: [
-        buildView(context),
-        AppConfig.errorViewBuilder.build(context),
-        AppConfig.loadingViewBuilder.build(context),
-      ].removeNull(),
     );
   }
 
