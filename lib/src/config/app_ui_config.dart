@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluro/fluro.dart';
 
 // class AppConfig {
 //   // 工厂模式 : 单例公开访问点
@@ -38,6 +39,9 @@ class AppConfig {
   static WidgetBuilder errorViewBuilder;
 // 全局加载视图，页面发生耗时、处理加载时展示
   static WidgetBuilder loadingViewBuilder;
+
+  // https://zhuanlan.zhihu.com/p/61657041
+  static final router = Router();
 }
 
 // library AppConfig.globals;

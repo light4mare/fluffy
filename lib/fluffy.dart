@@ -5,6 +5,9 @@ export 'src/design/page_ex.dart';
 export 'src/design/common_component.dart';
 export 'src/config/app_ui_config.dart';
 
+export 'src/app/app_ex.dart';
+export 'src/app/app_locale.dart';
+
 export 'src/ext/builder.dart';
 export 'src/ext/list.dart';
 
