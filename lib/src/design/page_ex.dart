@@ -12,13 +12,18 @@ typedef OnTap = void Function();
 typedef PageBuilder = Function(BuildContext context);
 
 // ignore: must_be_immutable
-abstract class PageEx<VM extends ChangeNotifier> extends SimplePageEx with DecorMixin {
+abstract class PageEx<VM extends ViewModelEx> extends SimplePageEx
+    with DecorMixin {
   Color bgColor = AppConfig.bodyColor;
+
+  VM vm;
 
   @override
   Widget build(BuildContext context) {
+    vm = createVM();
+    vm.init();
     return ChangeNotifierProvider<VM>.value(
-      value: createVM(),
+      value: vm,
       child: Scaffold(
         backgroundColor: bgColor,
         appBar: buildNavigator(context),
@@ -30,11 +35,13 @@ abstract class PageEx<VM extends ChangeNotifier> extends SimplePageEx with Decor
 
   VM createVM();
 
-  Widget buildNavigator(BuildContext context) {
-    return null;
-  }
+  Widget buildNavigator(BuildContext context) => null;
 
-  Widget buildErrorView() {}
+  Widget buildErrorView() => null;
+
+  T of<T>({bool listen = true}) {
+    return Provider.of(appContext, listen: listen);
+  }
 }
 
 abstract class ViewModelEx extends ChangeNotifier {

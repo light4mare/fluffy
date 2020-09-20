@@ -21,16 +21,18 @@ abstract class DecorMixin implements UIHost {
 
   Widget _buildWithError(BuildContext context) {
     return GestureDetector(
-      child: Selector<DecorLogic, bool>(
-        builder: (context, visible, child) {
+      child: Consumer<DecorLogic>(
+        builder: (context, logic, child) {
+          print("_buildWithError");
           return Visibility(
-            visible: visible,
+            visible: true,
             child: buildView(context),
             replacement: customErrorView(context) ??
-                AppConfig.errorViewBuilder.build(context),
+                AppConfig.errorViewBuilder.build(context) ??
+                SizedBox.shrink(),
           );
         },
-        selector: (context, decor) => !_logic._showError,
+        // selector: (context, decor) => !_logic._showError,
       ),
       onTap: onRetry,
     );
@@ -42,7 +44,8 @@ abstract class DecorMixin implements UIHost {
         return Offstage(
           offstage: visible,
           child: customErrorView(context) ??
-              AppConfig.loadingViewBuilder.build(context),
+              AppConfig.loadingViewBuilder.build(context) ??
+              SizedBox.shrink(),
         );
       },
       selector: (context, decor) => !_logic._showLoading,

@@ -1,6 +1,6 @@
 import 'package:fluffy/fluffy.dart';
 import 'package:fluffy/src/config/app_ui_config.dart';
-import 'package:fluro/fluro.dart';
+import 'package:fluro/fluro.dart' as fluro;
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -12,11 +12,13 @@ abstract class AppEx extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _configureRoute(AppConfig.router);
+    initConfig(context);
 
     return ChangeNotifierProvider<AppLocale>.value(
       value: AppLocale(),
       child: Consumer<AppLocale>(
         builder: (BuildContext context, appLocale, Widget child) {
+          appContext = context;
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
@@ -50,7 +52,9 @@ abstract class AppEx extends StatelessWidget {
     Future<dynamic> _,
   ) {}
 
-  void _configureRoute(Router router) {}
+  void initConfig(BuildContext context){}
+
+  void _configureRoute(fluro.Router router) {}
 
   Widget buildHome(BuildContext context);
 

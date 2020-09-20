@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluro/fluro.dart';
+import 'package:fluro/fluro.dart' as fluro;
 
 // class AppConfig {
 //   // 工厂模式 : 单例公开访问点
@@ -41,7 +41,7 @@ class AppConfig {
   static WidgetBuilder loadingViewBuilder;
 
   // https://zhuanlan.zhihu.com/p/61657041
-  static final router = Router();
+  static final router = fluro.Router();
 }
 
 // library AppConfig.globals;
