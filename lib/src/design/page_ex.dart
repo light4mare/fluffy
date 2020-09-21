@@ -1,11 +1,12 @@
 import 'package:fluffy/fluffy.dart';
 import 'package:fluffy/src/config/app_ui_config.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
 
 import 'decor_view.dart';
 import 'simple_page_ex.dart';
+import 'view_model_ex.dart';
 
 typedef OnTap = void Function();
 
@@ -42,8 +43,7 @@ abstract class PageEx<VM extends ViewModelEx> extends SimplePageEx
   T of<T>({bool listen = true}) {
     return Provider.of(appContext, listen: listen);
   }
-}
 
-abstract class ViewModelEx extends ChangeNotifier {
-  void init() {}
+  @override
+  bool onPop() => vm.onPop();
 }

@@ -11,7 +11,7 @@ BuildContext appContext;
 abstract class AppEx extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    _configureRoute(AppConfig.router);
+    configureRoute(AppConfig.router);
     initConfig(context);
 
     return ChangeNotifierProvider<AppLocale>.value(
@@ -54,7 +54,7 @@ abstract class AppEx extends StatelessWidget {
 
   void initConfig(BuildContext context){}
 
-  void _configureRoute(fluro.Router router) {}
+  void configureRoute(fluro.Router router) {}
 
   Widget buildHome(BuildContext context);
 
@@ -62,34 +62,3 @@ abstract class AppEx extends StatelessWidget {
 
   Iterable<Locale> supportedLocales();
 }
-
-// class AppStateEx extends State<AppEx> {
-//   @override
-//   void initState() {
-//     configureRoute(AppConfig.router);
-//     super.initState();
-//   }
-//
-//   void configureRoute(Router router) {}
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(
-//         primaryColor: Colors.white,
-//       ),
-//       builder: FlutterBoost.init(postPush: _onRoutePushed),
-//       home: Container(),
-//       onGenerateRoute: AppConfig.router.generator,
-//     );
-//   }
-//
-//   void _onRoutePushed(
-//     String pageName,
-//     String uniqueId,
-//     Map<String, dynamic> params,
-//     Route<dynamic> route,
-//     Future<dynamic> _,
-//   ) {}
-// }

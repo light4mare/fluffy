@@ -8,22 +8,23 @@ abstract class DecorMixin implements UIHost {
 
   @override
   Widget buildBody(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: _logic,
-      child: Stack(
-        children: [
-          _buildWithError(context),
-          _buildLoading(context),
-        ].removeNull(),
-      ),
-    );
+    return WillPopScope(
+        onWillPop: () => Future<bool>.value(onPop()),
+        child: ChangeNotifierProvider.value(
+          value: _logic,
+          child: Stack(
+            children: [
+              _buildWithError(context),
+              _buildLoading(context),
+            ].removeNull(),
+          ),
+        ));
   }
 
   Widget _buildWithError(BuildContext context) {
     return GestureDetector(
       child: Consumer<DecorLogic>(
         builder: (context, logic, child) {
-          print("_buildWithError");
           return Visibility(
             visible: true,
             child: buildView(context),
@@ -60,6 +61,10 @@ abstract class DecorMixin implements UIHost {
 
   @override
   onRetry() {}
+
+  bool onPop() {
+    return true;
+  }
 
   showError() {
     _logic._onError();
