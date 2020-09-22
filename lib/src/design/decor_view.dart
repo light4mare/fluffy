@@ -60,6 +60,9 @@ abstract class DecorMixin implements UIHost {
   Widget customLoadingView(BuildContext context) => null;
 
   @override
+  Widget buildView(BuildContext context);
+
+  @override
   onRetry() {}
 
   bool onPop() {

@@ -13,12 +13,10 @@ abstract class AppEx extends StatelessWidget {
   Widget build(BuildContext context) {
     configureRoute(AppConfig.router);
     initConfig(context);
-
     return ChangeNotifierProvider<AppLocale>.value(
       value: AppLocale(),
       child: Consumer<AppLocale>(
         builder: (BuildContext context, appLocale, Widget child) {
-          appContext = context;
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(

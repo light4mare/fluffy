@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'decor_view.dart';
-import 'simple_page_ex.dart';
 import 'view_model_ex.dart';
 
 typedef OnTap = void Function();
@@ -13,14 +12,18 @@ typedef OnTap = void Function();
 typedef PageBuilder = Function(BuildContext context);
 
 // ignore: must_be_immutable
-abstract class PageEx<VM extends ViewModelEx> extends SimplePageEx
-    with DecorMixin {
+abstract class PageEx<VM extends ViewModelEx> extends StatelessWidget
+    with DecorMixin, RouteMixin {
   Color bgColor = AppConfig.bodyColor;
 
   VM vm;
 
   @override
   Widget build(BuildContext context) {
+    // FIXME 是否真的需要appContext，放这里也不合适
+    if (appContext == null){
+      appContext = context;
+    }
     vm = createVM();
     vm.init();
     return ChangeNotifierProvider<VM>.value(

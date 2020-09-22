@@ -4,19 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'decor_view.dart';
+import 'route_mixin.dart';
 import 'view_model_ex.dart';
 
-abstract class StatePageEx<VM extends ViewModelEx> extends StatefulWidget {
-  Color bgColor = AppConfig.bodyColor;
+// ignore: must_be_immutable
+abstract class StatePageEx<VM extends ViewModelEx> extends StatefulWidget
+    with RouteMixin {
+  final Color bgColor = AppConfig.bodyColor;
 
   VM vm;
 
   @override
   State<StatefulWidget> createState() {
-    return PageStateEx();
+    return PageStateEx<VM>();
   }
 
-  @override
   Widget buildView(BuildContext context);
 
   VM createVM();
@@ -25,7 +27,7 @@ abstract class StatePageEx<VM extends ViewModelEx> extends StatefulWidget {
 
   Widget buildErrorView(BuildContext context) => null;
 
-  void onBuild(BuildContext context){}
+  void onBuild(BuildContext context) {}
 
   bool onPop() => vm.onPop();
 
@@ -34,17 +36,20 @@ abstract class StatePageEx<VM extends ViewModelEx> extends StatefulWidget {
   }
 }
 
-class PageStateEx<VM extends ViewModelEx> extends State<StatePageEx> with DecorMixin, WidgetsBindingObserver {
-
+class PageStateEx<VM extends ViewModelEx> extends State<StatePageEx>
+    with DecorMixin, WidgetsBindingObserver {
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     WidgetsBinding.instance.addObserver(this);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // FIXME 是否真的需要appContext，放这里也不合适
+    if (appContext == null) {
+      appContext = context;
+    }
     widget.vm = widget.createVM();
     widget.vm.init();
     widget.onBuild(context);
@@ -60,26 +65,9 @@ class PageStateEx<VM extends ViewModelEx> extends State<StatePageEx> with DecorM
   }
 
   @override
-  void deactivate() {
-    print("2333333333333333 deactivate");
-    super.deactivate();
-  }
-
-  @override
   void dispose() {
-    print("2333333333333333 dispose");
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print("2333333333333333 didChangeAppLifecycleState $state");
-  }
-
-  @override
-  Future<bool> didPopRoute() {
-    print("2333333333333333 didPopRoute");
-    return super.didPopRoute();
   }
 
   @override
@@ -89,10 +77,12 @@ class PageStateEx<VM extends ViewModelEx> extends State<StatePageEx> with DecorM
   Widget buildView(BuildContext context) => widget.buildView(context);
 
   @override
-  Widget customErrorView(BuildContext context) => widget.buildNavigator(context);
+  Widget customErrorView(BuildContext context) =>
+      widget.buildNavigator(context);
 
   @override
-  Widget customLoadingView(BuildContext context) => widget.buildErrorView(context);
+  Widget customLoadingView(BuildContext context) =>
+      widget.buildErrorView(context);
 }
 
 class StateMixin {}
