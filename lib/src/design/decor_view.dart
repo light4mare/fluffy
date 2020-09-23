@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'ui_host.dart';
 
 abstract class DecorMixin implements UIHost {
-  DecorLogic _logic = DecorLogic();
+  final DecorLogic _logic = DecorLogic();
 
   @override
   Widget buildBody(BuildContext context) {
