@@ -25,7 +25,7 @@ abstract class PageEx<VM extends ViewModelEx> extends StatelessWidget
       appContext = context;
     }
     vm = createVM();
-    vm.init();
+    vm?.init();
     return ChangeNotifierProvider<VM>.value(
       value: vm,
       child: Scaffold(
