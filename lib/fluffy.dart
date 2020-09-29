@@ -14,6 +14,7 @@ export 'src/app/app_locale.dart';
 export 'src/ext/builder.dart';
 export 'src/ext/list.dart';
 
+export 'src/compiler/http_method.dart';
 export 'src/compiler/api.dart';
 
 export 'package:provider/provider.dart';

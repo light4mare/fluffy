@@ -1,31 +1,67 @@
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:build/src/builder/build_step.dart';
-import 'package:fluffy/src/compiler/visitor/api_element_visitor.dart';
+import 'package:dio/dio.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'api.dart';
-import 'visitor/api_type_visitor.dart';
 
 // https://www.jianshu.com/p/3b9992b84e60
 // https://www.jianshu.com/p/aa6cc00cb76d
-class ApiGenerator extends GeneratorForAnnotation<Api>{
+class ApiGenerator extends GeneratorForAnnotation<Api> {
   @override
-  generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) {
-    print("2333333333333 element.name  ${element.toString()} \n   element.displayName: ${element.displayName}    \n   element.declaration: ${element.enclosingElement}   ");
-    var visitor = ApiTypeVisitor();
-    if(element is ClassElement){
+  generateForAnnotatedElement(
+      Element element, ConstantReader annotation, BuildStep buildStep) {
+    // print("2333333333333 element.name  ${element.toString()} \n   element.displayName: ${element.displayName}    \n   element.declaration: ${element.enclosingElement}   ");
+    print("2333333333333 annotation info :${annotation.read("host").stringValue}");
+    
+    var buffer = StringBuffer();
+
+    Dio().clear();
+    CancelToken();
+    if (element is ClassElement) {
+      buffer.write("class ${element.name}Creator {\n");
       for (var method in element.methods) {
-        // method.returnType.element.accept(ApiElementVisitor());
-        var type = method.returnType;
-        // https://www.it1352.com/593422.html
-        if(type is ParameterizedType) {
-          print("2333333333333333 method.returnType ${type.typeArguments}");
+        for (var value in method.metadata) {
+          // value.constantValue.toBoolValue(): ${value.constantValue.toBoolValue()}
+
+          buffer.write(method.returnType.toString());
+          buffer.write(" ${method.name}() {\nreturn ");
+          buffer.write(method.returnType.toString());
+          buffer.write(".");
+          buffer.write(annotation.peek("method").stringValue + "(null)");
+          buffer.write(";\n}");
+
+          // var element = value.element;
+          //
+          // ParsedLibraryResult parsedLibResult = element.session.getParsedLibraryByElement(element.library);
+          //
+          // ElementDeclarationResult elDeclarationResult = parsedLibResult.getElementDeclaration(element);
+
+          // if(element is ConstructorElement){
+          // }
+          // var reader = ConstantReader(value.computeConstantValue());
+          // print("23333333333 method.metadata value:  ${reader.peek("path").stringValue}  ");
         }
-        print("2333333333333333 method.returnType ${method.returnType.runtimeType}");
+        // print("233333333333 method.runtimeType ${method.runtimeType}");
+
+
+        // method.returnType.element.accept(ApiElementVisitor());
+        // var type = method.returnType;
+        // // https://www.it1352.com/593422.html
+        // print("2333333333333333 method.returnType ${type}");
+        // if (type is InterfaceType) {
+        //   for (var value in type.typeArguments) {
+        //     print("2333333333333333 method.returnType ${value.toString()}");
+        //   }
+        // }
       }
     }
 
-    return '//添加一条注释111111111111111111123333333333333333333';//这里因为测试，只自动生成了一个注释
+
+    buffer.write("\n}");
+    return buffer.toString();
+    return '//添加一条注释111111111111111111123333333333333333333'; //这里因为测试，只自动生成了一个注释
   }
 }

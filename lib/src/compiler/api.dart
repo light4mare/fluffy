@@ -1,6 +1,10 @@
-class Api{
-  final String host;
-  final String method;
+import 'package:dio/dio.dart';
+import 'package:fluffy/src/net/client/client.dart';
 
-  const Api(this.host, this.method);
+class Api {
+  final String method;
+  final CancelToken cancelToken;
+  final NetClient client;
+
+  const Api(this.method, this.client, {this.cancelToken});
 }

@@ -1,3 +1,4 @@
+import 'package:fluffy/src/net/client/dio_client.dart';
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart' as fluro;
 
@@ -42,6 +43,8 @@ class AppConfig {
 
   // https://zhuanlan.zhihu.com/p/61657041
   static final router = fluro.Router();
+
+  static final DioClient client = DioClient(null, null, null);
 }
 
 // library AppConfig.globals;
