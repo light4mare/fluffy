@@ -44,7 +44,7 @@ class AppConfig {
   // https://zhuanlan.zhihu.com/p/61657041
   static final router = fluro.Router();
 
-  static final DioClient client = DioClient(null, null, null);
+  static DioClient client;
 }
 
 // library AppConfig.globals;

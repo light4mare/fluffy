@@ -5,11 +5,10 @@ import 'package:fluffy/src/net/converter/response_converter.dart';
 
 class DioClient extends NetClient {
   final Dio dio;
-  final String host;
   final CancelToken cancelToken;
   ResponseHandler handler;
 
-  DioClient(this.dio, this.host, this.cancelToken, {DefaultHandler handler}) {
+  DioClient(this.dio, this.cancelToken, {DefaultHandler handler}) {
     this.handler = handler ?? DefaultHandler();
   }
 

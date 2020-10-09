@@ -15,4 +15,6 @@ await 可以直接对future进行拆箱
 flutter packages pub run build_runner build
 flutter packages pub run build_runner watch
 
+taskkill /im dart.exe /f
+
 #flutter packages pub run build_runner build lib
