@@ -17,4 +17,14 @@ flutter packages pub run build_runner watch
 
 taskkill /im dart.exe /f
 
-#flutter packages pub run build_runner build lib
+flutter packages pub run build_runner clean
+
+flutter packages pub run build_runner build --delete-conflicting-outputs
+
+# delete pubspec.lock
+$ rm -rf pubspec.lock
+
+//# clean
+$ flutter clean
+
+flutter packages pub run build_runner build lib

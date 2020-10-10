@@ -1,10 +1,5 @@
-import 'dart:async';
-
-import 'package:dio/dio.dart';
-import 'package:fluffy/src/config/app_ui_config.dart';
-import 'package:fluffy/src/net/task/dio_task.dart';
-
-var temple_get = '''DioTask<{{RspType}}> methodName<{{RspType}}>(String param, bool param1) {
+const temple_get =
+    '''DioTask<{{RspType}}> methodName<{{RspType}}>(String param, bool param1) {
   CancelToken token = CancelToken();
   Future future = AppConfig.client.dio.get({{url}}}, queryParameters: {{parameter}}, cancelToken: token);
   DioTask task = DioTask<{{RspType}}>(future, AppConfig.client.handler, (map) => {{{RspType}}.{{jsonMethod}}(map)}, cancelToken: token);

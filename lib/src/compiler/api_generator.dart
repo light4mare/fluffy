@@ -3,7 +3,6 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:build/src/builder/build_step.dart';
 import 'package:dio/dio.dart';
-import 'package:mustache4dart2/mustache4dart2.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'api.dart';
