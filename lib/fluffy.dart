@@ -16,5 +16,7 @@ export 'src/ext/list.dart';
 
 export 'src/compiler/http_method.dart';
 export 'src/compiler/api.dart';
+export 'src/net/task/dio_task.dart';
 
 export 'package:provider/provider.dart';
+export 'package:dio/dio.dart';
