@@ -12,6 +12,8 @@ class ApiGenerator extends GeneratorForAnnotation<Api> {
   @override
   generateForAnnotatedElement(
       Element element, ConstantReader annotation, BuildStep buildStep) {
+    var jsonMethod = annotation.read("method").stringValue;
+
     var paramBuffer = StringBuffer();
     var formBuffer = StringBuffer();
     var codeBuffer = StringBuffer();
@@ -33,12 +35,13 @@ class ApiGenerator extends GeneratorForAnnotation<Api> {
         for (var value in method.metadata) {
 
           var reader = ConstantReader(value.computeConstantValue());
+          var customJsonMethod = reader.peek("jsonMethod")?.stringValue;
 
           var result = render(temple_get, <String, dynamic>{
             'methodName':method.name,
             'originParam': paramBuffer.toString(),
             'RspType':method.returnType.getDisplayString(withNullability: false),
-            'jsonMethod':annotation.read("method").stringValue,
+            'jsonMethod':customJsonMethod ?? jsonMethod,
             'url':reader.peek("path").stringValue,
             'parameter': '{${formBuffer.toString()}}'
           }).toString();
