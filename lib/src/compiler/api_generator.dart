@@ -22,13 +22,12 @@ class ApiGenerator extends GeneratorForAnnotation<Api> {
         paramBuffer.clear();
         formBuffer.clear();
         method.parameters.forEach((element) {
-          print("2333333333333 element: $element");
           if(paramBuffer.isNotEmpty) {
             formBuffer.write(', ');
             paramBuffer.write(', ');
           }
           formBuffer.write("\'${element.name}\': ${element.name}");
-          paramBuffer.write(element);
+          paramBuffer.write(element.getDisplayString(withNullability: false));
         });
 
         for (var value in method.metadata) {
@@ -38,19 +37,21 @@ class ApiGenerator extends GeneratorForAnnotation<Api> {
           var result = render(temple_get, <String, dynamic>{
             'methodName':method.name,
             'originParam': paramBuffer.toString(),
-            'RspType':method.returnType.toString(),
+            'RspType':method.returnType.getDisplayString(withNullability: false),
             'jsonMethod':annotation.read("method").stringValue,
             'url':reader.peek("path").stringValue,
             'parameter': '{${formBuffer.toString()}}'
           }).toString();
+          // print('2333333333333333 result: $result');
 
-          codeBuffer.write(result + "\n");
+          codeBuffer.writeln(result);
         }
       }
     }
 
     codeBuffer.write("\n}");
     var result = codeBuffer.toString().replaceAll("&apos;", "\'");
+    // print("2333333333333333 result: $result");
     return result;
   }
 }
