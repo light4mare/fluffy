@@ -32,12 +32,19 @@ class ApiGenerator extends GeneratorForAnnotation<Api> {
           paramBuffer.write(element.getDisplayString(withNullability: false));
         });
 
-        for (var value in method.metadata) {
-
-          var reader = ConstantReader(value.computeConstantValue());
+        for (var annotation in method.metadata) {
+          var value = annotation.computeConstantValue();
+          var annotationName = value.type.getDisplayString(withNullability: false);
+          var reader = ConstantReader(value);
           var customJsonMethod = reader.peek("jsonMethod")?.stringValue;
 
-          var result = render(temple_get, <String, dynamic>{
+          var template;
+          if(annotationName == 'Get') {
+            template = temple_get;
+          } else {
+            template = temple_post;
+          }
+          var result = render(template, <String, dynamic>{
             'methodName':method.name,
             'originParam': paramBuffer.toString(),
             'RspType':method.returnType.getDisplayString(withNullability: false),
